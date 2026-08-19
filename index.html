@@ -9,6 +9,7 @@
     <style>
         :root {
             --primary-color: #d32f2f;
+            --primary-dark: #b71c1c;
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-main: #333333;
@@ -19,49 +20,106 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); }
 
-        aside { display: none; } 
+        /* Mobile First - Ajustes para telas pequenas */
+        aside { display: none; }
         main { padding: 20px; margin-left: 0; }
 
+        /* Desktop - Menu Lateral Visível */
         @media (min-width: 768px) {
             body { display: flex; }
-            aside { width: 260px; background-color: var(--primary-color); color: #ffffff; display: flex; flex-direction: column; position: fixed; height: 100vh; }
+            aside { width: 260px; background-color: var(--primary-color); color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; position: fixed; height: 100vh; left: 0; top: 0; }
             main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); }
         }
 
         .logo-container { padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .logo-container h1 { font-size: 22px; font-weight: 700; }
-        
+        .logo-container h1 { font-size: 22px; letter-spacing: 2px; font-weight: 700; }
+        .nav-links { list-style: none; padding: 20px 0; }
+        .nav-links li a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; color: #ffffff; text-decoration: none; font-weight: 500; }
+        .nav-links li.active a { background-color: rgba(255, 255, 255, 0.15); border-left: 4px solid #ffffff; }
+        .sidebar-footer { padding: 20px; font-size: 12px; text-align: center; opacity: 0.7; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
         .header-welcome { margin-bottom: 25px; }
+        .header-welcome h2 { font-size: 26px; font-weight: 700; }
+        .header-welcome p { color: var(--text-muted); margin-top: 5px; font-size: 14px; }
+
+        /* Pesquisa */
         .search-bar-container { position: relative; margin-bottom: 25px; }
         .search-bar-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .search-bar-container input { width: 100%; padding: 16px 20px 16px 55px; border: 1px solid var(--border-color); border-radius: 12px; }
+        .search-bar-container input { width: 100%; padding: 16px 20px 16px 55px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 15px; outline: none; background: #fff; }
 
-        .ramais-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        .ramal-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        /* Filtros Avançados (Chips) */
+        .filter-section { margin-bottom: 30px; }
+        .filter-title { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .filter-title i { color: var(--primary-color); }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip { background: #ffffff; border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        .chip:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        .chip.active { background-color: var(--primary-color); color: #ffffff; border-color: var(--primary-color); box-shadow: 0 4px 6px rgba(211, 47, 47, 0.2); }
+
+        /* Grid de Cards */
+        .ramais-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .ramal-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; }
         
-        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .card-header i { color: var(--primary-color); font-size: 20px; }
-        .card-info h3 { font-size: 14px; color: var(--primary-color); font-weight: 700; text-transform: uppercase; }
-        .card-info p { font-size: 13px; color: var(--text-muted); }
-        .colaborador { font-size: 12px; color: #444; margin-top: 4px; font-weight: 600; }
-
-        .card-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
-        .numero { font-size: 16px; font-weight: 700; color: #333; }
-        .whatsapp-link { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #25d366; text-decoration: none; font-weight: 600; }
+        .card-header-icon { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px; }
+        .card-header-icon i { color: var(--primary-color); background: rgba(211, 47, 47, 0.08); padding: 10px; border-radius: 8px; font-size: 18px; }
+        .card-info h3 { font-size: 15px; font-weight: 600; color: #111; }
+        .card-info p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+        .card-info .colaborador { font-size: 13px; color: #222; margin-top: 6px; font-weight: 600; }
+        
+        .card-footer-ramal { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: flex-end; }
+        .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        .numero { font-size: 18px; font-weight: 700; color: var(--primary-color); }
+        
+        /* Estilo WhatsApp com número visível */
+        .whatsapp-container { display: flex; flex-direction: column; }
+        .whatsapp-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #25d366; text-decoration: none; font-weight: 600; margin-top: 2px; }
+        .whatsapp-link:hover { text-decoration: underline; }
+        .whatsapp-link i { font-size: 15px; }
     </style>
 </head>
 <body>
     <aside>
-        <div class="logo-container"><h1>UNIALFA</h1><span>FADISP</span></div>
+        <div>
+            <div class="logo-container">
+                <h1>UNIALFA</h1>
+                <span>São Paulo • FADISP</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-house"></i> <span>Início</span></a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">&copy; 2026 UNIALFA - SP</div>
     </aside>
 
     <main>
-        <div class="header-welcome"><h2>Lista de Ramais</h2></div>
+        <div class="header-welcome">
+            <h2>Olá! 👋</h2>
+            <p>Bem-vindo ao sistema de ramais da FADISP.</p>
+        </div>
+        
         <div class="search-bar-container">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Pesquisar nome ou setor...">
+            <input type="text" id="searchInput" placeholder="Pesquisar por colaborador, setor, departamento ou ramal...">
         </div>
+
+        <!-- Filtros Avançados por Setor -->
+        <div class="filter-section">
+            <div class="filter-title"><i class="fa-solid fa-filter"></i> Filtrar por Setor:</div>
+            <div class="filter-chips" id="filterChips">
+                <div class="chip active" data-setor="todos">Todos</div>
+                <div class="chip" data-setor="Biblioteca">Biblioteca</div>
+                <div class="chip" data-setor="Central de Atendimento">Central de Atendimento</div>
+                <div class="chip" data-setor="Coordenação">Coordenação</div>
+                <div class="chip" data-setor="Diretoria">Diretoria</div>
+                <div class="chip" data-setor="Gerência">Gerência</div>
+                <div class="chip" data-setor="T.I">T.I</div>
+                <div class="chip" data-setor="Manutenção">Manutenção</div>
+                <div class="chip" data-setor="Limpeza">Limpeza</div>
+                <div class="chip" data-setor="Marketing">Marketing</div>
+                <div class="chip" data-setor="NUPES">NUPES</div>
+            </div>
+        </div>
+
         <div id="ramaisGrid" class="ramais-grid"></div>
     </main>
 
@@ -89,29 +147,85 @@
             { nome: "Rebeca Maria El Amm Cavalari", setor: "NUPES", depto: "Assistente", ramal: "7515", cel: null }
         ];
 
-        function renderCards(data) {
-            const grid = document.getElementById('ramaisGrid');
-            grid.innerHTML = data.map(item => `
-                <div class="ramal-card">
-                    <div class="card-header"><i class="fa-solid fa-user-tie"></i>
-                        <div class="card-info"><h3>${item.setor}</h3><p>${item.depto}</p><div class="colaborador">${item.nome}</div></div>
-                    </div>
-                    <div class="card-footer">
-                        <div>
-                            <span class="label">WhatsApp</span><br>
-                            ${item.cel ? `<a href="https://api.whatsapp.com/send?phone=${item.cel}" target="_blank" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> Chat</a>` : '<span style="color:#ccc; font-size:12px;">N/A</span>'}
-                        </div>
-                        <div><span class="label">Ramal</span><div class="numero">${item.ramal}</div></div>
-                    </div>
-                </div>
-            `).join('');
+        let setorSelecionado = 'todos';
+
+        function formatCel(cel) {
+            if (!cel) return '';
+            return `(${cel.substring(2,4)}) ${cel.substring(4,9)}-${cel.substring(9,13)}`;
         }
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const val = e.target.value.toLowerCase();
-            renderCards(ramaisData.filter(i => i.nome.toLowerCase().includes(val) || i.setor.toLowerCase().includes(val)));
+        function renderCards(data) {
+            const grid = document.getElementById('ramaisGrid');
+            grid.innerHTML = '';
+            
+            if (data.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 30px;">Nenhum ramal encontrado.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'ramal-card';
+                
+                // Exibe o número formatado do WhatsApp se existir, senão oculta a linha de celular
+                const celHtml = item.cel ? `
+                    <div class="whatsapp-container">
+                        <span class="label">WhatsApp</span>
+                        <a href="https://api.whatsapp.com/send?phone=${item.cel}" target="_blank" class="whatsapp-link" title="Abrir no WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i> ${formatCel(item.cel)}
+                        </a>
+                    </div>
+                ` : '<div></div>';
+                
+                card.innerHTML = `
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-building-user"></i>
+                        <div class="card-info">
+                            <h3>${item.setor}</h3>
+                            <p>${item.depto}</p>
+                            <div class="colaborador">${item.nome}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer-ramal">
+                        ${celHtml}
+                        <div>
+                            <span class="label">Ramal</span>
+                            <div class="numero">${item.ramal}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarDados() {
+            const termo = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtrados = ramaisData.filter(item => {
+                const matchSetor = (setorSelecionado === 'todos' || item.setor === setorSelecionado);
+                const matchTermo = item.nome.toLowerCase().includes(termo) || 
+                                   item.setor.toLowerCase().includes(termo) || 
+                                   item.depto.toLowerCase().includes(termo) || 
+                                   item.ramal.includes(termo);
+                return matchSetor && matchTermo;
+            });
+
+            renderCards(filtrados);
+        }
+
+        // Eventos
+        document.getElementById('searchInput').addEventListener('input', filtrarDados);
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                setorSelecionado = e.target.getAttribute('data-setor');
+                filtrarDados();
+            });
         });
 
+        // Inicialização
         renderCards(ramaisData);
     </script>
 </body>

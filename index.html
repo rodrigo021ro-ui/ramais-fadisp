@@ -9,7 +9,6 @@
     <style>
         :root {
             --primary-color: #d32f2f;
-            --primary-dark: #b71c1c;
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
             --text-main: #333333;
@@ -20,82 +19,49 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-main); }
 
-        /* Mobile First - Ajustes para telas pequenas */
-        aside { display: none; } /* Esconde o menu lateral no mobile por padrão */
+        aside { display: none; } 
         main { padding: 20px; margin-left: 0; }
 
-        /* Desktop - Menu Lateral Visível */
         @media (min-width: 768px) {
             body { display: flex; }
-            aside { width: 260px; background-color: var(--primary-color); color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; position: fixed; height: 100vh; left: 0; top: 0; }
+            aside { width: 260px; background-color: var(--primary-color); color: #ffffff; display: flex; flex-direction: column; position: fixed; height: 100vh; }
             main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); }
         }
 
         .logo-container { padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .logo-container h1 { font-size: 22px; letter-spacing: 2px; font-weight: 700; }
-        .nav-links { list-style: none; padding: 20px 0; }
-        .nav-links li a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; color: #ffffff; text-decoration: none; font-weight: 500; }
-        .nav-links li.active a { background-color: rgba(255, 255, 255, 0.15); border-left: 4px solid #ffffff; }
-        .sidebar-footer { padding: 20px; font-size: 12px; text-align: center; opacity: 0.7; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-
-        .header-welcome { margin-bottom: 25px; }
-        .header-welcome h2 { font-size: 24px; font-weight: 700; }
+        .logo-container h1 { font-size: 22px; font-weight: 700; }
         
+        .header-welcome { margin-bottom: 25px; }
         .search-bar-container { position: relative; margin-bottom: 25px; }
         .search-bar-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .search-bar-container input { width: 100%; padding: 16px 20px 16px 55px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 15px; outline: none; }
-
-        .filter-section { margin-bottom: 25px; }
-        .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-        .chip { background: #ffffff; border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-        .chip.active { background-color: var(--primary-color); color: #ffffff; border-color: var(--primary-color); }
+        .search-bar-container input { width: 100%; padding: 16px 20px 16px 55px; border: 1px solid var(--border-color); border-radius: 12px; }
 
         .ramais-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
         .ramal-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         
         .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
         .card-header i { color: var(--primary-color); font-size: 20px; }
-        .card-info h3 { font-size: 15px; font-weight: 600; }
+        .card-info h3 { font-size: 14px; color: var(--primary-color); font-weight: 700; text-transform: uppercase; }
         .card-info p { font-size: 13px; color: var(--text-muted); }
-        .colaborador { font-size: 12px; color: #444; margin-top: 4px; font-weight: 500; }
+        .colaborador { font-size: 12px; color: #444; margin-top: 4px; font-weight: 600; }
 
         .card-footer { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-        .numero { font-size: 16px; font-weight: 700; color: var(--primary-color); }
-        
-        /* Ícone WhatsApp */
-        .whatsapp-link { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #25d366; text-decoration: none; font-weight: 600; }
-        .whatsapp-link i { font-size: 18px; }
+        .label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+        .numero { font-size: 16px; font-weight: 700; color: #333; }
+        .whatsapp-link { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #25d366; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
     <aside>
-        <div>
-            <div class="logo-container"><h1>UNIALFA</h1><span>FADISP</span></div>
-            <ul class="nav-links"><li class="active"><a href="#"><i class="fa-solid fa-house"></i> <span>Início</span></a></li></ul>
-        </div>
-        <div class="sidebar-footer">&copy; 2026 UNIALFA</div>
+        <div class="logo-container"><h1>UNIALFA</h1><span>FADISP</span></div>
     </aside>
 
     <main>
-        <div class="header-welcome"><h2>Sistema de Ramais</h2></div>
+        <div class="header-welcome"><h2>Lista de Ramais</h2></div>
         <div class="search-bar-container">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Pesquisar...">
+            <input type="text" id="searchInput" placeholder="Pesquisar nome ou setor...">
         </div>
-
-        <div class="filter-section">
-            <div class="filter-chips" id="filterChips">
-                <div class="chip active" data-setor="todos">Todos</div>
-                <div class="chip" data-setor="Biblioteca">Biblioteca</div>
-                <div class="chip" data-setor="Central de Atendimento">Central de Atendimento</div>
-                <div class="chip" data-setor="Coordenação">Coordenação</div>
-                <div class="chip" data-setor="T.I">T.I</div>
-                <div class="chip" data-setor="Marketing">Marketing</div>
-                <div class="chip" data-setor="NUPES">NUPES</div>
-            </div>
-        </div>
-
         <div id="ramaisGrid" class="ramais-grid"></div>
     </main>
 
@@ -103,14 +69,25 @@
         const ramaisData = [
             { nome: "Adenilto Lopes Do Prado Júnior", setor: "Biblioteca", depto: "Bibliotecário", ramal: "7525", cel: "5511973873589" },
             { nome: "Adriana André da Silva", setor: "Central de Atendimento", depto: "Coordenadora Central", ramal: "7527", cel: "5511973873589" },
+            { nome: "Aline Leticia Nascimento de Jesus", setor: "Central de Atendimento", depto: "Assistente", ramal: "7503", cel: "5511973873589" },
+            { nome: "Beatriz Mendes Reis", setor: "Central de Atendimento", depto: "Assistente", ramal: "7504", cel: "5511973873589" },
+            { nome: "Leonardo José De Araujo Ribeiro", setor: "Coordenação", depto: "Coordenador - Graduação", ramal: "7526", cel: null },
+            { nome: "Cintia Menezes Brunetta", setor: "Coordenação", depto: "Coordenadora - Geral", ramal: "7526", cel: null },
+            { nome: "Thiago Lopes Matsushita", setor: "Diretoria", depto: "Diretor Superintendente", ramal: "7521", cel: null },
+            { nome: "Ellen Cristina Martins André", setor: "Gerência", depto: "Gerente de Relações", ramal: "7511", cel: null },
             { nome: "Rodrigo Silva Sant Ana", setor: "T.I", depto: "Coordenador de T.I", ramal: "7506", cel: "5511943904318" },
+            { nome: "Lincoln Mikael Nunes da Silva", setor: "T.I", depto: "Assistente Audiovisual", ramal: "7506", cel: "5511943904318" },
+            { nome: "João Pedro Zangarini Tavares da Silva", setor: "T.I", depto: "Assistente de Suporte", ramal: "7506", cel: "5511943904318" },
+            { nome: "Claudenir de Almeida", setor: "Manutenção", depto: "Auxiliar", ramal: "7508", cel: null },
+            { nome: "Cleide Vieira Dourado", setor: "Limpeza", depto: "Encarregada", ramal: "7508", cel: null },
             { nome: "Talita da Silva Dias", setor: "Marketing", depto: "Analista", ramal: "7520", cel: "5511973974185" },
-            { nome: "Damares Cunha Benicio", setor: "NUPES", depto: "Assistente", ramal: "7522", cel: "5511973870863" }
+            { nome: "Bruna Silva Araujo Teixeira", setor: "Marketing", depto: "Estagiária", ramal: "7520", cel: "5511973974185" },
+            { nome: "Damares Cunha Benicio", setor: "NUPES", depto: "Assistente", ramal: "7522", cel: "5511973870863" },
+            { nome: "Gabriela Paiva Araujo", setor: "NUPES", depto: "Analista", ramal: "7512", cel: "5511975802207" },
+            { nome: "Giovanna Giatti", setor: "NUPES", depto: "Analista", ramal: "7519", cel: "5511975802207" },
+            { nome: "Kezia Siqueira dos Santos Nunes", setor: "Gerência", depto: "Gerente Administrativa", ramal: "7524", cel: null },
+            { nome: "Rebeca Maria El Amm Cavalari", setor: "NUPES", depto: "Assistente", ramal: "7515", cel: null }
         ];
-
-        function formatCel(cel) {
-            return `(${cel.substring(2,4)}) ${cel.substring(4,9)}-${cel.substring(9,13)}`;
-        }
 
         function renderCards(data) {
             const grid = document.getElementById('ramaisGrid');
@@ -121,10 +98,8 @@
                     </div>
                     <div class="card-footer">
                         <div>
-                            <span class="label">Celular</span><br>
-                            <a href="https://api.whatsapp.com/send?phone=${item.cel}" target="_blank" class="whatsapp-link">
-                                <i class="fa-brands fa-whatsapp"></i> ${formatCel(item.cel)}
-                            </a>
+                            <span class="label">WhatsApp</span><br>
+                            ${item.cel ? `<a href="https://api.whatsapp.com/send?phone=${item.cel}" target="_blank" class="whatsapp-link"><i class="fa-brands fa-whatsapp"></i> Chat</a>` : '<span style="color:#ccc; font-size:12px;">N/A</span>'}
                         </div>
                         <div><span class="label">Ramal</span><div class="numero">${item.ramal}</div></div>
                     </div>
@@ -139,7 +114,5 @@
 
         renderCards(ramaisData);
     </script>
-</body>
-</html>
 </body>
 </html>

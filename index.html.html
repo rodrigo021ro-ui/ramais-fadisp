@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Ramais - FADISP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #d32f2f;
+            --primary-dark: #b71c1c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #e5e7eb;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); display: flex; min-height: 100vh; }
+
+        /* Menu Lateral */
+        aside { width: 260px; background-color: var(--primary-color); color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; position: fixed; height: 100vh; left: 0; top: 0; }
+        .logo-container { padding: 30px 20px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .logo-container h1 { font-size: 22px; letter-spacing: 2px; font-weight: 700; }
+        .nav-links { list-style: none; padding: 20px 0; }
+        .nav-links li a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; color: #ffffff; text-decoration: none; font-weight: 500; }
+        .nav-links li.active a { background-color: rgba(255, 255, 255, 0.15); border-left: 4px solid #ffffff; }
+        .sidebar-footer { padding: 20px; font-size: 12px; text-align: center; opacity: 0.7; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+
+        /* Conteúdo */
+        main { margin-left: 260px; flex-grow: 1; padding: 40px; }
+        .header-welcome { margin-bottom: 25px; }
+        .header-welcome h2 { font-size: 26px; font-weight: 700; }
+        .header-welcome p { color: var(--text-muted); margin-top: 5px; }
+
+        /* Pesquisa */
+        .search-bar-container { position: relative; margin-bottom: 25px; }
+        .search-bar-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-bar-container input { width: 100%; padding: 16px 20px 16px 55px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 15px; outline: none; }
+        .search-shortcut { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: var(--bg-color); border: 1px solid var(--border-color); padding: 4px 8px; border-radius: 6px; font-size: 12px; color: var(--text-muted); }
+
+        /* Filtro por Setor */
+        .filter-section { margin-bottom: 35px; }
+        .filter-title { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .filter-title i { color: var(--primary-color); }
+        .filter-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+        .chip { background: #ffffff; border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        .chip:hover { border-color: var(--primary-color); color: var(--primary-color); }
+        .chip.active { background-color: var(--primary-color); color: #ffffff; border-color: var(--primary-color); box-shadow: 0 4px 6px rgba(211, 47, 47, 0.2); }
+
+        /* Grid */
+        .ramais-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .ramal-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; }
+        .card-header-icon { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .card-header-icon i { color: var(--primary-color); background: rgba(211, 47, 47, 0.08); padding: 10px; border-radius: 8px; }
+        .card-info h3 { font-size: 15px; font-weight: 600; }
+        .card-info p { font-size: 13px; color: var(--text-muted); }
+        .card-info .colaborador { font-size: 12px; color: #444; margin-top: 6px; font-weight: 500; }
+        
+        .card-footer-ramal { margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .card-footer-ramal .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+        .card-footer-ramal .numero { font-size: 18px; font-weight: 700; color: var(--primary-color); }
+        .card-footer-ramal .celular { font-size: 13px; color: #555; }
+    </style>
+</head>
+<body>
+    <aside>
+        <div>
+            <div class="logo-container">
+                <h1>UNIALFA</h1>
+                <span>FADISP</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-house"></i> <span>Início</span></a></li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">&copy; 2026 UNIALFA - SP</div>
+    </aside>
+
+    <main>
+        <div class="header-welcome">
+            <h2>Olá! 👋</h2>
+            <p>Bem-vindo ao sistema de ramais da FADISP.</p>
+        </div>
+        
+        <div class="search-bar-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Pesquisar ramal, colaborador, setor ou departamento...">
+            <span class="search-shortcut">Ctrl + K</span>
+        </div>
+
+        <!-- Filtro por Setor -->
+        <div class="filter-section">
+            <div class="filter-title"><i class="fa-solid fa-thumbtack"></i> Filtrar por Setor:</div>
+            <div class="filter-chips" id="filterChips">
+                <div class="chip active" data-setor="todos">Todos</div>
+                <div class="chip" data-setor="Biblioteca">Biblioteca</div>
+                <div class="chip" data-setor="Central de Atendimento">Central de Atendimento</div>
+                <div class="chip" data-setor="Coordenação">Coordenação</div>
+                <div class="chip" data-setor="Diretoria">Diretoria</div>
+                <div class="chip" data-setor="Gerência">Gerência</div>
+                <div class="chip" data-setor="T.I">T.I</div>
+                <div class="chip" data-setor="Manutenção">Manutenção</div>
+                <div class="chip" data-setor="Limpeza">Limpeza</div>
+                <div class="chip" data-setor="Marketing">Marketing</div>
+                <div class="chip" data-setor="NUPES">NUPES</div>
+            </div>
+        </div>
+
+        <div id="ramaisGrid" class="ramais-grid"></div>
+    </main>
+
+    <script>
+        const ramaisData = [
+            { nome: "Adenilto Lopes Do Prado Júnior", setor: "Biblioteca", depto: "Bibliotecário", ramal: "7525", cel: "(11) 97387-3589" },
+            { nome: "Adriana André da Silva", setor: "Central de Atendimento", depto: "Coordenadora Central", ramal: "7527", cel: "(11) 97387-3589" },
+            { nome: "Aline Leticia Nascimento de Jesus", setor: "Central de Atendimento", depto: "Assistente", ramal: "7503", cel: "(11) 97387-3589" },
+            { nome: "Beatriz Mendes Reis", setor: "Central de Atendimento", depto: "Assistente", ramal: "7504", cel: "(11) 97387-3589" },
+            { nome: "Leonardo José De Araujo Ribeiro", setor: "Coordenação", depto: "Coordenador - Graduação", ramal: "7526", cel: null },
+            { nome: "Cintia Menezes Brunetta", setor: "Coordenação", depto: "Coordenadora - Geral", ramal: "7526", cel: null },
+            { nome: "Thiago Lopes Matsushita", setor: "Diretoria", depto: "Diretor Superintendente", ramal: "7521", cel: null },
+            { nome: "Ellen Cristina Martins André", setor: "Gerência", depto: "Gerente de Relações", ramal: "7511", cel: null },
+            { nome: "Rodrigo Silva Sant Ana", setor: "T.I", depto: "Coordenador de T.I", ramal: "7506", cel: "(11) 94390-4318" },
+            { nome: "Lincoln Mikael Nunes da Silva", setor: "T.I", depto: "Assistente Audiovisual", ramal: "7506", cel: "(11) 94390-4318" },
+            { nome: "João Pedro Zangarini Tavares da Silva", setor: "T.I", depto: "Assistente de Suporte", ramal: "7506", cel: "(11) 94390-4318" },
+            { nome: "Claudenir de Almeida", setor: "Manutenção", depto: "Auxiliar", ramal: "7508", cel: null },
+            { nome: "Cleide Vieira Dourado", setor: "Limpeza", depto: "Encarregada", ramal: "7508", cel: null },
+            { nome: "Talita da Silva Dias", setor: "Marketing", depto: "Analista", ramal: "7520", cel: "(11) 97397-4185" },
+            { nome: "Bruna Silva Araujo Teixeira", setor: "Marketing", depto: "Estagiária", ramal: "7520", cel: "(11) 97397-4185" },
+            { nome: "Damares Cunha Benicio", setor: "NUPES", depto: "Assistente", ramal: "7522", cel: "(11) 97387-0863" },
+            { nome: "Gabriela Paiva Araujo", setor: "NUPES", depto: "Analista", ramal: "7512", cel: "(11) 97580-2207" },
+            { nome: "Giovanna Giatti", setor: "NUPES", depto: "Analista", ramal: "7519", cel: "(11) 97580-2207" },
+            { nome: "Kezia Siqueira dos Santos Nunes", setor: "Gerência", depto: "Gerente Administrativa", ramal: "7524", cel: null },
+            { nome: "Rebeca Maria El Amm Cavalari", setor: "NUPES", depto: "Assistente", ramal: "7515", cel: "(11) 97580-2207"  }
+        ];
+
+        let setorSelecionado = 'todos';
+
+        function renderCards(data) {
+            const grid = document.getElementById('ramaisGrid');
+            grid.innerHTML = '';
+            
+            if (data.length === 0) {
+                grid.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1; text-align: center; padding: 30px;">Nenhum ramal encontrado.</p>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'ramal-card';
+                const celHtml = item.cel ? `<div><span class="label">Celular</span><br><span class="celular">${item.cel}</span></div>` : '';
+                
+                card.innerHTML = `
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-building-user"></i>
+                        <div class="card-info">
+                            <h3>${item.setor}</h3>
+                            <p>${item.depto}</p>
+                            <div class="colaborador">${item.nome}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer-ramal">
+                        ${celHtml}
+                        <div style="${!item.cel ? 'margin-left: auto;' : ''}">
+                            <span class="label">Ramal</span>
+                            <div class="numero">${item.ramal}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarDados() {
+            const termo = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtrados = ramaisData.filter(item => {
+                const matchSetor = (setorSelecionado === 'todos' || item.setor === setorSelecionado);
+                const matchTermo = item.nome.toLowerCase().includes(termo) || 
+                                   item.setor.toLowerCase().includes(termo) || 
+                                   item.depto.toLowerCase().includes(termo) || 
+                                   item.ramal.includes(termo);
+                return matchSetor && matchTermo;
+            });
+
+            renderCards(filtrados);
+        }
+
+        // Evento de busca por texto
+        document.getElementById('searchInput').addEventListener('input', filtrarDados);
+
+        // Eventos dos botões de filtro (chips)
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', (e) => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+                setorSelecionado = e.target.getAttribute('data-setor');
+                filtrarDados();
+            });
+        });
+        
+        // Renderização inicial
+        renderCards(ramaisData);
+    </script>
+</body>
+</html>
